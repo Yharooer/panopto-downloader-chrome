@@ -1,0 +1,19 @@
+{
+"name": "Panopto Downloader",
+"version": "1.0",
+"description": "Downloads Panopto files. Tested with the University of Cambridge Panopto site.",
+"manifest_version": 2,
+
+"browser_action": {
+"default_popup": "popup.html"
+},
+"permissions": [
+"downloads", "activeTab", "https://*.panopto.eu/*"
+],
+"content_scripts": [
+ {
+ 	"js": ["panoptodl.js"],
+ 	"matches": ["https://*.panopto.eu/*"]
+ }
+]
+}

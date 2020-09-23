@@ -1,4 +1,6 @@
-function downloadPage() {
+// Gets the id and name of the video on the page.
+// Otherwise returns null.
+function getOneVideo() {
 	var name = null;
 	try {
 		name = document.getElementById('viewerHeader').getElementById('deliveryTitle').innerText;
@@ -11,55 +13,97 @@ function downloadPage() {
 	var urlParams = new URLSearchParams(window.location.search);
 	var id = urlParams.get('id');
 	if (id != null) {
-		downloadSingle(id, name);
+		return {
+			id: id,
+			name: name
+		};
 	}
+	return null;
 }
 
-function downloadMany() {
+// Gets all the videos on the page.
+// If this page does not contain a list of videos, returns null.
+function getVideoSeries() {
 	var detailsTable = document.getElementById('detailsTable');
 
 	if (detailsTable == null) {
-		return;
+		return null;
 	}
 
 	var trs = detailsTable.getElementsByTagName('tr');
 
-	var ids = [];
-	var names = [];
-	for (i=0; i<trs.length; i++) {
+	var details = [];
+	for (i = 0; i < trs.length; i++) {
 		var atags = Array.from(trs[i].getElementsByClassName('detail-cell')).map(dc => Array.from(dc.getElementsByTagName('a')));
 		atags = flatten(atags);
-		for (j=0; j<atags.length; j++) {
+		for (j = 0; j < atags.length; j++) {
 			url = atags[j].href;
 			var urlParams = new URLSearchParams(url.split('?')[1]);
 			var id = urlParams.get('id');
-			if (!ids.includes(id) && id != null) {
+			if (!details.map(d => d.id).includes(id) && id != null) {
 				name = atags[j].innerText;
-				ids.push(id);
-				names.push(name);
+				details.push({
+					id: id,
+					name: name
+				});
 			}
 		}
 	}
+	return details;
+}
 
-	for (i=0; i<ids.length; i++) {
-		downloadSingle(ids[i], names[i]);
+// Setup popup.
+function setupPopup() {
+	var singleDetails = getOneVideo();
+	var bulkDetails = getVideoSeries() || [];
+	chrome.runtime.sendMessage({
+		action: "VIEW",
+		videoDetails: arrayUnique([singleDetails, ...bulkDetails]),
+		hostname: window.location.hostname
+	});
+}
+
+// Downloads the video on this page.
+function downloadPage() {
+	var details = getOneVideo();
+	if (details != null) {
+		downloadSingle(details.id, details.name);
+	}
+}
+
+// Download all videos on this page.
+function downloadMany() {
+	var details = getVideoSeries();
+	for (i = 0; i < details.length; i++) {
+		downloadSingle(details[i].id, details[i].name);
 	}
 
 }
 
+// Downloads a single video given the video ID and its name.
 function downloadSingle(id, name) {
 	var host = window.location.hostname;
 	var url = 'https://' + host + '/Panopto/Podcast/Social/' + id + '.mp4';
 	console.log(name);
-	chrome.runtime.sendMessage({action:"DOWNLOAD", url: url, filename: name + '.mp4'});
-	//chrome.downloads.download({url: url, filename: name})
+	chrome.runtime.sendMessage({ action: "DOWNLOAD", url: url, filename: name + '.mp4' });
 }
 
 function flatten(arr) {
-  return arr.reduce(function (flat, toFlatten) {
-    return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
-  }, []);
+	return arr.reduce(function (flat, toFlatten) {
+		return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
+	}, []);
 }
 
-downloadPage();
-downloadMany();
+function arrayUnique(array) {
+	var a = array.concat();
+	for (var i = 0; i < a.length; ++i) {
+		for (var j = i + 1; j < a.length; ++j) {
+			if (a[i] === a[j])
+				a.splice(j--, 1);
+		}
+	}
+
+	return a.filter(e => e != null);
+}
+
+setupPopup();

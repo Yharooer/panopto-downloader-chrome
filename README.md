@@ -8,4 +8,4 @@ Panopto Downloader is a extension for Google Chrome to download videos from the 
 Panpto Downloader is in no way affiliated with Panopto. You should check with your institution to determine whether you are permitted to store downloads of recordings before using this tool.
 
 ## Get
-Panopto Downloader is pending review on the Chrome Web Store.
+Panopto Downloader is [available on the Chrome Web Store](https://chrome.google.com/webstore/detail/panopto-downloader/jcgoagdconfndcjginjeokegdpahebno).

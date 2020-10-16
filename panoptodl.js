@@ -52,13 +52,34 @@ function getVideoSeries() {
 	return details;
 }
 
+// Gets the videos on the homepage.
+// If this page does not contain any videos in the homepage-like layout
+function getHomeVideos() {
+	return Array.from(document.getElementsByClassName('item')).map(e => {
+		try {
+			return {
+				id: e.id,
+				name: e.getElementsByClassName('title-link')[0].getElementsByClassName('detail-title')[0].innerText
+			}
+		} catch(e) {
+			return null;
+		}
+	}).filter(e => e != null && e.id != "" && e.id != null);
+}
+
 // Setup popup.
 function setupPopup() {
 	var singleDetails = getOneVideo();
 	var bulkDetails = getVideoSeries() || [];
+
+	var combined = arrayUniqueId([singleDetails, ...bulkDetails].filter(e=>e!=null));
+	if (combined === undefined || combined.length == 0) {
+		combined = arrayUniqueId(getHomeVideos());
+	}
+
 	chrome.runtime.sendMessage({
 		action: "VIEW",
-		videoDetails: arrayUnique([singleDetails, ...bulkDetails]),
+		videoDetails: combined,
 		hostname: window.location.hostname
 	});
 }
@@ -77,14 +98,12 @@ function downloadMany() {
 	for (i = 0; i < details.length; i++) {
 		downloadSingle(details[i].id, details[i].name);
 	}
-
 }
 
 // Downloads a single video given the video ID and its name.
 function downloadSingle(id, name) {
 	var host = window.location.hostname;
 	var url = 'https://' + host + '/Panopto/Podcast/Social/' + id + '.mp4';
-	console.log(name);
 	chrome.runtime.sendMessage({ action: "DOWNLOAD", url: url, filename: name + '.mp4' });
 }
 
@@ -94,11 +113,11 @@ function flatten(arr) {
 	}, []);
 }
 
-function arrayUnique(array) {
+function arrayUniqueId(array) {
 	var a = array.concat();
 	for (var i = 0; i < a.length; ++i) {
 		for (var j = i + 1; j < a.length; ++j) {
-			if (a[i] === a[j])
+			if (a[i].id === a[j].id)
 				a.splice(j--, 1);
 		}
 	}

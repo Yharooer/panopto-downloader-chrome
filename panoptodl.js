@@ -15,7 +15,7 @@ function getOneVideo() {
 	if (id != null) {
 		return {
 			id: id,
-			name: name
+			name: safeFileName(name)
 		};
 	}
 	return null;
@@ -41,10 +41,10 @@ function getVideoSeries() {
 			var urlParams = new URLSearchParams(url.split('?')[1]);
 			var id = urlParams.get('id');
 			if (!details.map(d => d.id).includes(id) && id != null) {
-				name = atags[j].innerText;
+				var name = atags[j].innerText;
 				details.push({
 					id: id,
-					name: name
+					name: safeFileName(name)
 				});
 			}
 		}
@@ -125,4 +125,15 @@ function arrayUniqueId(array) {
 	return a.filter(e => e != null);
 }
 
+// Makes a name safe to be a filename for Windows and Unix-based systems.
+function safeFileName(filename) {
+	filename = filename.replace(/[\/\\:*?<>]/g,' ');
+	filename = filename.replace('"', "'");
+	while (filename.includes('..')) {
+		filename = filename.replace('..', '');
+	}
+	return filename;
+}
+
+window.addEventListener('load', () => setupPopup());
 setupPopup();

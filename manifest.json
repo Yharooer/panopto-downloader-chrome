@@ -1,6 +1,6 @@
 {
 	"name": "Panopto Downloader",
-	"version": "1.1",
+	"version": "1.2",
 	"description": "Downloads Panopto videos. Tested with the University of Cambridge Panopto website.",
 	"manifest_version": 2,
 	"browser_action": {

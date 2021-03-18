@@ -44,10 +44,10 @@ chrome.runtime.onMessage.addListener(
 
       // Add download all button if there is more than one video.
       if (details.length > 1) {
-        var batch_dl_div = document.createElement('div');
+        const batch_dl_div = document.createElement('div');
         batch_dl_div.style.width = '100%';
         batch_dl_div.style.textAlign = 'center';
-        var batch_dl_button = document.createElement('button');
+        const batch_dl_button = document.createElement('button');
         batch_dl_div.appendChild(batch_dl_button);
         batch_dl_button.innerText = `Download ${details.length} videos`;
         batch_dl_button.id = 'batch_download';
@@ -56,6 +56,15 @@ chrome.runtime.onMessage.addListener(
             code: `downloadMany();`
           });
         });
+        // batch_dl_button.addEventListener('contextmenu', e => {
+        //   e.preventDefault();
+        //   copyManyLinks(details.map(d => d.id), request.hostname);
+        //   batch_dl_button.innerHTML = `${details.length} links copied!`;
+        //   window.setTimeout(() => {
+        //     batch_dl_button.innerHTML = `Download ${details.length} videos`;
+        //   }, 2000);
+        // });
+        
         document.getElementById('downloader').appendChild(batch_dl_div);
       }
       document.getElementById('downloader').appendChild(document.createElement('hr'));
@@ -63,20 +72,20 @@ chrome.runtime.onMessage.addListener(
       // Add a download section for each video found.
       for (var i = 0; i < details.length; i++) {
 
-        var div_el = document.createElement('div');
+        const div_el = document.createElement('div');
         div_el.classList.add('video_element');
         div_el.id = `video_element_${details[i].id}`;
-        var div_im = document.createElement('div');
+        const div_im = document.createElement('div');
         div_im.classList.add('image_container');
         div_im.style.backgroundImage = `url(${getVideoPreviewLink(details[i].id, request.hostname)})`;
         div_el.appendChild(div_im);
-        var div_txcnt = document.createElement('div');
+        const div_txcnt = document.createElement('div');
         div_txcnt.classList = 'text_container';
         div_el.appendChild(div_txcnt);
-        var p = document.createElement('p');
+        const p = document.createElement('p');
         p.innerHTML = details[i].name;
         div_txcnt.appendChild(p);
-        var but = document.createElement('button');
+        const but = document.createElement('button');
         but.innerHTML = 'Download';
         const id = details[i].id;
         const name = details[i].name;
@@ -85,6 +94,14 @@ chrome.runtime.onMessage.addListener(
             code: `downloadSingle("${id.replace('"', '\\"')}", "${name.replace('"', '\\"').replace(/[<>:"\/\\|?*]/g, '')}");`
           });
         });
+        // but.addEventListener('contextmenu', e => {
+        //   e.preventDefault();
+        //   copyLink(id, request.hostname);
+        //   but.innerHTML = 'Link copied!';
+        //   window.setTimeout(() => {
+        //     but.innerHTML = 'Download';
+        //   }, 2000);
+        // });
         div_txcnt.append(but);
         document.getElementById('downloader').appendChild(div_el);
         if (i + 1 < details.length) {
@@ -96,3 +113,13 @@ chrome.runtime.onMessage.addListener(
       document.getElementById('downloader').style.display = 'block';
     }
   });
+
+function copyLink(id, host) {
+  const url = 'https://' + host + '/Panopto/Podcast/Social/' + id + '.mp4';
+  navigator.clipboard.writeText(url);
+}
+
+function copyManyLinks(ids, host) {
+  const urls = ids.map(id => 'https://' + host + '/Panopto/Podcast/Social/' + id + '.mp4');
+  navigator.clipboard.writeText(urls.join('\n'));
+}

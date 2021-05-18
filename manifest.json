@@ -21,7 +21,8 @@
 	"permissions": [
 		"downloads",
 		"activeTab",
-		"https://*.panopto.eu/*"
+		"https://*.panopto.eu/*",
+		"https://*.panopto.com/*"
 	],
 	"content_scripts": [
 		{

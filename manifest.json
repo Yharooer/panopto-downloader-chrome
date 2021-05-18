@@ -1,6 +1,6 @@
 {
 	"name": "Panopto Downloader",
-	"version": "1.2",
+	"version": "1.3",
 	"description": "Downloads Panopto videos. Tested with the University of Cambridge Panopto website.",
 	"manifest_version": 2,
 	"browser_action": {
@@ -30,7 +30,8 @@
 				"panoptodl.js"
 			],
 			"matches": [
-				"https://*.panopto.eu/*"
+				"https://*.panopto.eu/*",
+				"https://*.panopto.com/*"
 			]
 		}
 	]

@@ -2,75 +2,73 @@
 <html>
 
 <head>
-  <title>Panopto Downloader</title>
-  <style>
-    body {
-      width: 250px;
-      background-color: #f0f0f0;
-    }
-
-    p {
-      margin-top: 0;
-    }
-
-    .video_element {
-      display: flex;
-      flex-direction: horizontal;
-      align-items: stretch;
-    }
-
-    .image_container {
-      display: block;
-      width: 100px;
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: cover;
-    }
-
-    .text_container {
-      display: block;
-      width: 142px;
-      padding: 4px;
-    }
-
-    #footer {
-      text-align: center;
-      font-size: 8pt;
-    }
-
-    #footer a,
-    #footer a:hover,
-    #footer a:visited {
-      color: black;
-      text-decoration: none;
-    }
-
-    hr {
-      border-color: #79a367;
-      border-style: solid;
-    }
-
-  </style>
+    <title>Panopto Downloader</title>
+    <style>
+        body {
+            width: 250px;
+            background-color: #f0f0f0;
+        }
+        
+        p {
+            margin-top: 0;
+        }
+        
+        .video_element {
+            display: flex;
+            flex-direction: horizontal;
+            align-items: stretch;
+        }
+        
+        .image_container {
+            display: block;
+            width: 100px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
+        
+        .text_container {
+            display: block;
+            width: 142px;
+            padding: 4px;
+        }
+        
+        #footer {
+            text-align: center;
+            font-size: 8pt;
+        }
+        
+        #footer a,
+        #footer a:hover,
+        #footer a:visited {
+            color: black;
+            text-decoration: none;
+        }
+        
+        hr {
+            border-color: #79a367;
+            border-style: solid;
+        }
+    </style>
 </head>
 
 <body>
-  <img src='/img/header.svg' />
-  <div id='loading'>
-    <p style='text-align: center;'>No Panopto videos detected on this page.</p>
-  </div>
-  <div id="not_detected" style='display:none;'>
-    <p style='text-align: center;'>No Panopto videos detected on this page.</p>
-    <p id='is_panopto_url' style='display:none;'>Not working? Try browsing a folder through the left hand folder, or open a video as if you were going to view it.</p>
-  </div>
-  <div id='downloader' style='display:none;'>
-    <p id='terms'>Panpto Downloader is in no way affiliated with Panopto. You should check with your institution to determine whether you are permitted to store downloads of recordings before using this tool.</p>
-  </div>
-  <div id='footer'>
-    <hr>
-    Panopto Downloder by Bentley Carr<br />
-    <span id='github' style='cursor: pointer;'>github.com/Yharooer/panopto-downloader-chrome</span>
-  </div>
-  <script src="popup.js"></script>
+    <img src='/img/header.svg' />
+    <div id='loading'>
+        <p style='text-align: center;'>No Panopto videos detected on this page.</p>
+    </div>
+    <div id="not_detected" style='display:none;'>
+        <p style='text-align: center;'>No Panopto videos detected on this page.</p>
+        <p id='is_panopto_url' style='display:none;'>Not working? Try browsing a folder through the left hand panel, or open a video as if you were going to view it.</p>
+    </div>
+    <div id='downloader' style='display:none;'>
+        <p id='terms'>Panpto Downloader is in no way affiliated with Panopto. You should check with your institution to determine whether you are permitted to store downloads of recordings before using this tool.</p>
+    </div>
+    <div id='footer'>
+        <hr> Panopto Downloder by Bentley Carr<br />
+        <span id='github' style='cursor: pointer;'>github.com/Yharooer/panopto-downloader-chrome</span>
+    </div>
+    <script src="popup.js"></script>
 </body>
 
 </html>

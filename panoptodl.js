@@ -135,7 +135,7 @@ function downloadMany() {
 // Downloads a single video given the video ID and its name.
 function downloadSingle(id, name) {
     var host = window.location.hostname;
-    var url = 'https://' + host + '/Panopto/Podcast/Social/' + id + '.mp4';
+    var url = 'https://' + host + '/Panopto/Podcast/Download/' + id + '.mp4';
     chrome.runtime.sendMessage({ action: "DOWNLOAD", url: url, filename: name + '.mp4' });
 }
 

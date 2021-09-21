@@ -1,0 +1,62 @@
+.MainPagePadding {
+    display: block;
+    height: 48px;
+    width: 100vw;
+    transition: height 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.MainPagePadding.hidden {
+    height: 0px;
+}
+
+.OuterPositioning {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    bottom: -100vh;
+}
+
+.DownloadManagerPage {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    bottom: 48px;
+    color: white;
+    left: 0;
+    box-shadow: 0px -2px 4px -1px rgb(0 0 0 / 20%), 0px -4px 5px 0px rgb(0 0 0 / 14%), 0px -1px 10px 0px rgb(0 0 0 / 12%);
+    transition: bottom 300ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.DownloadManagerPage.open {
+    bottom: 100vh;
+}
+
+.DownloadManagerPage.hidden {
+    bottom: 0;
+    box-shadow: 0px -2px 4px -1px rgb(0 0 0 / 0%), 0px -4px 5px 0px rgb(0 0 0 / 0%), 0px -1px 10px 0px rgb(0 0 0 / 0%);
+}
+
+.DownloadManagerPage .ExpandIcon {
+    transform: rotate(0);
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.DownloadManagerPage.open .ExpandIcon {
+    transform: rotate(180deg);
+}
+
+.TitleContainer {
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 8px;
+}
+
+.DownloadManagerPage hr {
+    border-top-color: rgba(255, 255, 255, .5);
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-bottom-style: none;
+    margin: 2px 0px;
+    width: calc(100% + 16px);
+}

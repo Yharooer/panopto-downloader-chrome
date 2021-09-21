@@ -1,0 +1,29 @@
+{
+    "name": "Panopto Downloader",
+    "version": "2.0.0",
+    "description": "Downloads Panopto videos. Tested with the University of Cambridge Panopto website.",
+    "manifest_version": 3,
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "img/icon16.png",
+            "32": "img/icon32.png",
+            "48": "img/icon48.png",
+            "128": "img/icon128.png"
+        }
+    },
+    "icons": {
+        "16": "img/icon16.png",
+        "32": "img/icon32.png",
+        "48": "img/icon48.png",
+        "128": "img/icon128.png"
+    },
+    "permissions": [
+        "downloads",
+        "activeTab",
+        "scripting"
+    ],
+    "background": {
+        "service_worker": "background.bundle.js"
+    }
+}

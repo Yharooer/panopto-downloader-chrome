@@ -1,0 +1,24 @@
+.FooterComponent {
+    text-align: center;
+    font-size: 8pt;
+    width: 100%;
+}
+
+.FooterComponent .footer {
+    text-align: center;
+    font-size: 8pt;
+    line-height: normal;
+    letter-spacing: 0;
+}
+
+.FooterComponent .footer.clickable {
+    cursor: pointer;
+}
+
+.FooterComponent a,
+.FooterComponent a:hover,
+.FooterComponent a:vistied {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

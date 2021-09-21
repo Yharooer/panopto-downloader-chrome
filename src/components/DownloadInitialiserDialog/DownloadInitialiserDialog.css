@@ -1,0 +1,14 @@
+.ToolbarTitle {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.subtitle {
+    color: rgba(0,0,0,0.54);
+}
+
+.detailContainer {
+    width: 100%;
+    margin-top: 16px;
+}

@@ -1,0 +1,8 @@
+.HorizontalRule {
+    border-top-color: rgba(0, 0, 0, .12);
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-bottom-style: none;
+    margin: 6px -8px;
+    width: calc(100% + 16px);
+}

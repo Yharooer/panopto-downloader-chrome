@@ -1,0 +1,11 @@
+.TitleComponent {
+    text-align: center;
+}
+
+.TitleComponent #title_image {
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+    display: inline-block;
+    width: 100%;
+}

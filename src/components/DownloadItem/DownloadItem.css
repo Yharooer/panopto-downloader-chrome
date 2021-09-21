@@ -1,0 +1,59 @@
+.DownloadItem {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    position: relative;
+    transition: all 0.25s ease-out;
+    width: 100%;
+    padding: 4px 8px;
+}
+
+.VideoTitle {
+    font-weight: bold;
+}
+
+.DownloadItem .ImageContainer {
+    display: block;
+    width: 75px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    border-radius: 8px;
+    margin-right: 8px;
+}
+
+.DownloadItem .TextContainer {
+    display: block;
+    width: 167px;
+    padding: 0;
+}
+
+.DownloadItem .TextContainer .TitleText {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.DownloadItem .TextContainer button {
+    height: 24px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.DownloadItem .ProgressContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+
+.DownloadItem .ProgressContainer .MuiLinearProgress-root {
+    flex-grow: 1;
+}
+
+.loadingHolder {
+    text-align: center;
+    width: 100%;
+    height: calc(41px - 7.5px);
+    padding-top: 7.5px;
+}

@@ -5,6 +5,8 @@
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
+    "@ffmpeg/core": "^0.10.0",
+    "@ffmpeg/ffmpeg": "^0.10.1",
     "@fontsource/roboto": "^4.5.0",
     "@mui/core": "^5.0.0-alpha.47",
     "@mui/icons-material": "^5.0.0",

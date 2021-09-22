@@ -45,18 +45,3 @@
 .DownloadManagerPage.open .ExpandIcon {
     transform: rotate(180deg);
 }
-
-.TitleContainer {
-    padding-left: 8px;
-    padding-right: 8px;
-    padding-top: 8px;
-}
-
-.DownloadManagerPage hr {
-    border-top-color: rgba(255, 255, 255, .5);
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-bottom-style: none;
-    margin: 2px 0px;
-    width: calc(100% + 16px);
-}

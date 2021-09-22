@@ -6,6 +6,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { getDownloads } from '../../DownloadManagerHandler';
 import { useAutoRefresh } from '../../utils/useAutoRefresh';
 import { DownloadItem } from '../DownloadItem/DownloadItem';
+import { DownloadListComponent } from '../DownloadListComponent/DownloadListComponent';
 import './DownloadManagerPage.css';
 
 const DownloadManagerPage = () => {
@@ -62,29 +63,7 @@ const DownloadManagerPage = () => {
                             </Typography>
                         </Toolbar>
                     </AppBar>
-
-                    <Grid container>
-                        {activeDownloads.length > 0 &&
-                            <>
-                                <div className="TitleContainer">
-                                    <Typography variant="button">Active Downloads</Typography>
-                                </div>
-                                <hr />
-                            </>
-                        }
-
-                        {activeDownloads.map(p => <DownloadItem progress={p} />)}
-
-                        {completedDownloads.length > 0 &&
-                            <>
-                                <div className="TitleContainer">
-                                    <Typography variant="button">Completed Downloads</Typography>
-                                </div>
-                                <hr />
-                            </>
-                        }
-                        {completedDownloads.map(p => <DownloadItem progress={p} />)}
-                    </Grid>
+                    <DownloadListComponent downloads={data} />                    
                 </Box>
             </div>
         </>

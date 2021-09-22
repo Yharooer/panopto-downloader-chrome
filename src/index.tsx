@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-//import { unstable_createMuiStrictModeTheme as createTheme , responsiveFontSizes, ThemeProvider } from '@mui/material';
 import { createTheme , responsiveFontSizes, ThemeProvider } from '@mui/material';
 
 const theme = responsiveFontSizes(createTheme({

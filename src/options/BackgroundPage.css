@@ -1,0 +1,24 @@
+body {
+    margin: 0;
+}
+
+#main {
+    min-height: 100vh;
+}
+
+.TitlePaper {
+    border-radius: 0 !important;
+    width: 100vw;
+}
+
+.TitlePaper .content {
+    max-width: 250px;
+    margin: auto;
+}
+
+.mainContainer {
+    max-width: 366px;
+    margin: auto;
+    color: white;
+    padding: 16px 0px;
+}

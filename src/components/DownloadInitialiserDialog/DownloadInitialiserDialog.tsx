@@ -7,8 +7,8 @@ import { PanoptoDeliveryInfo, PanoptoStream } from '../../common/PanoptoDelivery
 import { useCallback } from 'react';
 import AnimateHeight from 'react-animate-height';
 import { newDownload } from '../../DownloadManagerHandler';
-import { FFmpegMultiVidStreamData } from '../../background/DownloadItems/FFmpegMultiVidStreamItem';
-import { FFmpegSingleVidStreamData } from '../../background/DownloadItems/FFmpegSingleVidStreamItem';
+import { FFmpegMultiVidStreamData } from '../../options/DownloadManager/DownloadItems/FFmpegMultiVidStreamItem';
+import { FFmpegSingleVidStreamData } from '../../options/DownloadManager/DownloadItems/FFmpegSingleVidStreamItem';
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & { children?: React.ReactElement },

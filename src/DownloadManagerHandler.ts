@@ -1,10 +1,11 @@
 import { v4 as uuid } from 'uuid';
-import { DownloadManagerResponse, DownloadProgress } from './background/DownloadManagerTypes';
+import { DownloadManagerResponse, DownloadProgress } from './options/DownloadManager/DownloadManagerTypes';
 
 const requestMap = new Map();
 
 function onServiceWorkerMessage(event: MessageEvent) {
     const message = event.data as DownloadManagerResponse;
+    console.log(message);
 
     const id = message.uuid;
 
@@ -15,7 +16,7 @@ function onServiceWorkerMessage(event: MessageEvent) {
     }
 }
 
-export function initialiseDownloadManager() {
+export function initialiseDownloadManagerHandler() {
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker
             .register("/background.bundle.js", { scope: "/" })
@@ -27,7 +28,7 @@ export function initialiseDownloadManager() {
     navigator.serviceWorker.onmessage = onServiceWorkerMessage;
 }
 
-function postDownloadManager(data: any): Promise<any> {
+function postServiceWorker(data: any): Promise<any> {
     return new Promise((resolve, reject) => {
         const id = uuid();
         if (!navigator.serviceWorker.controller) {
@@ -40,9 +41,9 @@ function postDownloadManager(data: any): Promise<any> {
 }
 
 export async function newDownload(type: string, data: any) {
-    await postDownloadManager({ action: 'NEW', type, data });
+    await postServiceWorker({ action: 'NEW', type, data });
 }
 
 export async function getDownloads(): Promise<DownloadProgress[]> {
-    return await postDownloadManager({ action: 'PROGRESS' });
+    return await postServiceWorker({ action: 'PROGRESS' });
 }

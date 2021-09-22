@@ -1,7 +1,7 @@
 import { Grid, Typography } from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
 import React from 'react';
-import { DownloadProgress } from '../../background/DownloadManagerTypes';
+import { DownloadProgress } from '../../options/DownloadManager/DownloadManagerTypes';
 import { RelativeTimeComponent } from '../../utils/RelativeTimeComponent';
 import './DownloadItem.css';
 

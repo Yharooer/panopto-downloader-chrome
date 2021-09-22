@@ -21,6 +21,7 @@
     "permissions": [
         "downloads",
         "activeTab",
+        "tabs",
         "scripting"
     ],
     "background": {

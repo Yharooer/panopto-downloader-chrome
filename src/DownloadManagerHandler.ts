@@ -5,12 +5,11 @@ const requestMap = new Map();
 
 function onServiceWorkerMessage(event: MessageEvent) {
     const message = event.data as DownloadManagerResponse;
-    console.log(message);
 
     const id = message.uuid;
 
     if (requestMap.has(id)) {
-        const resolve = requestMap.get(id)
+        const resolve = requestMap.get(id);
         requestMap.delete(id);
         resolve(message.response);
     }
@@ -45,5 +44,9 @@ export async function newDownload(type: string, data: any) {
 }
 
 export async function getDownloads(): Promise<DownloadProgress[]> {
-    return await postServiceWorker({ action: 'PROGRESS' });
+    const { progress } = await postServiceWorker({ action: 'PROGRESS' });
+    if (!progress) {
+        throw new Error('Failed to get progress');
+    }
+    return progress;
 }

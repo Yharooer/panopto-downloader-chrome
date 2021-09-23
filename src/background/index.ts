@@ -155,7 +155,12 @@ async function onMessageAsync(event: ExtendableMessageEvent) {
             }
             break;
         case 'PROGRESS':
-            await softProxyToBgPage(message);
+            try {
+                await proxyToBgPage(message);
+            }
+            catch(e) {
+                replyToClients(message.uuid, {progress: []});
+            }
             break;
         default:
             await ensureBgWorkerExists();

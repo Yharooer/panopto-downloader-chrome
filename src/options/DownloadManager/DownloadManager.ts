@@ -38,7 +38,6 @@ export async function getProgress() {
 }
 
 async function newDownload(type: string, data: any) {
-    console.log(data);
     let item;
     switch (type) {
         case "CHROME":
@@ -75,7 +74,9 @@ function cancelDownload(uuid: string) {
 }
 
 
-async function onMessageAsync(message: BgWorkerPageMessage) {
+async function onMessageAsync(event: MessageEvent) {
+    const message = event.data as BgWorkerPageMessage;
+    
     switch (message.action) {
         case "PROGRESS":
             const progress = await getProgress();
@@ -120,11 +121,8 @@ function doInitialisationHandshake() {
 export type DownloadManagerStatus = "READY" | "WAITING" | "REJECTED";
 
 export async function initialiseDownloadManager() {
-    chrome.runtime.onMessage.addListener((message: any) => onMessageAsync(message).then());
+    navigator.serviceWorker.addEventListener('message', (event: MessageEvent) => onMessageAsync(event).then());
     
-    // TODO debug
-    // window.getDownloadProgress = getProgress;
-
     try {
         await doInitialisationHandshake();
         return true;

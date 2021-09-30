@@ -26,5 +26,11 @@
     ],
     "background": {
         "service_worker": "background.bundle.js"
+    },
+    "sandbox": {
+        "pages": ["options.html"]
+    },
+    "content_security_policy": {
+        "sandbox": "sandbox allow-scripts; script-src 'self' 'wasm-eval'; child-src 'self'"
     }
 }

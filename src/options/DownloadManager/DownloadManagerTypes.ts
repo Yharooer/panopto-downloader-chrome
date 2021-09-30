@@ -10,8 +10,8 @@ export type DownloadManagerResponse = {
 }
 
 // Query type
-export type ServiceWorkerMessage = InitHandshakeRequest | NonHandshakeMessage;
-export type BgWorkerPageMessage = InitHandshakeResponse | NonHandshakeMessage;
+export type ServiceWorkerMessage = InitHandshakeRequest | NonHandshakeMessage | ChromeProxyRequest;
+export type BgWorkerPageMessage = InitHandshakeResponse | NonHandshakeMessage | ChromeProxyResponse;
 
 export type NonHandshakeMessage = ProgressDownloadManagerMessage | NewChromeDownloadManagerMessage | NewFFMpegSingleVidStreamManagerMessage | NewFFMpegMultiVidStreamManagerMessage | CancelDownload;
 
@@ -75,29 +75,25 @@ export type DownloadProgress = {
     uuid: string
 }
 
-// export type DownloadProgress = IncompleteDownloadProgress | CompleteDownloadProgress;
+// Chrome Proxy Types
 
-// export type IncompleteDownloadProgress = {
-//     title: string
-//     hostname: string
-//     progress: number
-//     estimatedFinish?: Date
-//     status: string
-//     startTime: Date
-//     completed: false,
-//     videoId: string,
-//     uuid: string
-// }
+export type ChromeProxyRequest = {
+    action: "CHROME_PROXY_REQUEST"
+    path: string[]
+    args?: any[]
+    uuid: string
+}
 
-// export type CompleteDownloadProgress = {
-//     title: string
-//     hostname: string
-//     progress: number
-//     estimatedFinish?: Date
-//     status: string
-//     startTime: Date
-//     finishTime: Date,
-//     completed: true,
-//     videoId: string,
-//     uuid: string
-// }
+export type ChromeProxyResponse = SuccessfulChromeProxyResponse | FailedChromeProxyResponse;
+
+type SuccessfulChromeProxyResponse = {
+    action: "CHROME_PROXY_RESPONSE"
+    response: any
+    uuid: string
+}
+
+type FailedChromeProxyResponse = {
+    action: "CHROME_PROXY_RESPONSE"
+    error: string
+    uuid: string 
+}

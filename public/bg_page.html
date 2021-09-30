@@ -10,11 +10,9 @@
     <link rel="apple-touch-icon" href="img/logo128.png" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <title>Panopto Downloader</title>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval'; child-src 'self';">
-    <script src="/vendor/ffmpeg-core.js"></script>
   </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
+  <body style="margin: 0; overflow: hidden;">
+    <iframe id="sandbox_iframe" src="options.html" style="border: 0; width: 100vw; height: 100vh;"></iframe>
+    <script src="bg_page.js"></script>
+</body>
 </html>

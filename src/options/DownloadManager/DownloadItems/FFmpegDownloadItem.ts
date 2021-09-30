@@ -1,5 +1,6 @@
 import { FFmpeg, createFFmpeg } from '@ffmpeg/ffmpeg';
 import { PanoptoDeliveryInfo } from '../../../common/PanoptoDeliveryInfo';
+import { chromeProxy } from '../utils/ChromeAPIProxy';
 import { filenameFromVideoName } from '../utils/filenameFromVideoName';
 import { DownloadItem } from './DownloadItem';
 
@@ -21,7 +22,7 @@ export abstract class FFmpegDownloadItem extends DownloadItem {
     videoId: string;
     deliveryInfo: PanoptoDeliveryInfo;
     startTime: Date;
-    ffmpeg: FFmpeg;
+    ffmpeg: FFmpeg | undefined;
 
     endTime: Date | undefined;
 
@@ -54,25 +55,20 @@ export abstract class FFmpegDownloadItem extends DownloadItem {
         this.deliveryInfo = data.deliveryInfo;
         this.startTime = new Date();
         this.exportFilename = filenameFromVideoName(this.title);
+    }
 
+    async initialise(): Promise<void> {
         try {
             this.ffmpeg = createFFmpeg({
                 log: true,
                 progress: ({ ratio }) => this.currentCommandProgress = ratio,
-                corePath: chrome.runtime.getURL('vendor/ffmpeg-core.js')
+                corePath: await chromeProxy.runtime.getURL('vendor/ffmpeg-core.js')
             });
         }
         catch (e) {
             this.failed = true;
             console.error('Failed to initialise FFmpeg.wasm.');
             throw e;
-        }
-    }
-
-    async initialise(): Promise<void> {
-        if (!this.ffmpeg) {
-            this.failed = true;
-            throw new Error('FFmpeg object is undefined, did createFFmpeg fail?');
         }
 
         try {
@@ -115,7 +111,7 @@ export abstract class FFmpegDownloadItem extends DownloadItem {
         const array = this.ffmpeg.FS('readFile', this.finalFilename);
         const blob = new Blob([array.buffer]);
         const url = URL.createObjectURL(blob);
-        chrome.downloads.download({ url, filename: this.exportFilename });
+        await chromeProxy.downloads.download({ url, filename: this.exportFilename });
     }
 
     async getProgress() {

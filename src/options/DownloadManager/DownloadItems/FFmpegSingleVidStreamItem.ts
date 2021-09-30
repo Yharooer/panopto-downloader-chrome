@@ -15,6 +15,10 @@ export class FFmpegSingleVidStreamItem extends FFmpegDownloadItem {
     }
 
     async runFFmpegCommands(): Promise<void> {
+        if (!this.ffmpeg) {
+            throw new Error('FFmpeg is not initialised.');
+        }
+
         const streams = this.deliveryInfo.Delivery.Streams;
         const audioStreams = streams.filter(s => s.Tag === 'AUDIO');
         const videoStreams = streams.filter(s => s.Tag !== "AUDIO");
